@@ -8,7 +8,7 @@ COPY main.go .
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o is-towel-day .
 
-FROM alpine:latest
+FROM scratch
 
 COPY --from=builder /app/is-towel-day /is-towel-day
 
