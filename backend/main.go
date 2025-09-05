@@ -12,7 +12,7 @@ type TowelDayResponse struct {
   TowelDay     string `json:"towel_day"`
   CurrentDate  string `json:"current_date"`
   DaysUntil    int    `json:"days_until"`
-  Message       string `json:"message"`
+  Message      string `json:"message"`
 }
 
 func isTowelDayHandler(w http.ResponseWriter, r *http.Request) {
