@@ -3,9 +3,15 @@
 ## Overview
 The Towel Day API is a simple API that provides information about Towel Day, celebrated on May 25th in honor of Douglas Adams, the author of "The Hitchhiker's Guide to the Galaxy." This API allows users to check if today is Towel Day and how many days remain until the next Towel Day.
 
-## Running the API in a Podman Container
+## Run script for simplified setup
 
-To run the Towel Day API in a Podman container, follow these steps:
+```bash
+chmod +x setup.sh && ./setup.sh
+```
+
+## Running the API in a Podman Container - Step by step
+
+To run the Towel Day API in a Pod, follow these steps:
 
 **Install Podman:**
 Ensure that Podman is installed on your system. You can refer to the official [Podman documentation](https://podman.io/getting-started/installation) for installation instructions.
