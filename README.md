@@ -10,35 +10,49 @@ To run the Towel Day API in a Podman container, follow these steps:
 **Install Podman:**
 Ensure that Podman is installed on your system. You can refer to the official [Podman documentation](https://podman.io/getting-started/installation) for installation instructions.
 
-**Build the Container:**
-Run the following command in the directory containing your `Dockerfile`:
+**Build Containers:**
+Run the following commands in the directories containing your `Containerfile`:
 
 ```bash
-podman build -t towel-day-api .
+cd backend/
+podman build -t backend .
+
+cd ../proxy
+podman build -t proxy .
+
 ```
 
-**Run the Container:**
-Start the container with the following command:
+**Create Pod:**
+```bash
+podman pod create --name mypod -p 8081:80
+```
+
+**Run Containers:**
+Start containers with the following commands:
 
 ```bash
-podman run --rm -dt -p 8080:8080 towel-day-api
+podman run -dt --rm --pod mypod backend:latest
+podman run -dt --rm --pod mypod proxy:latest
 ```
 
 **Access the API:**
-You can now access the API by navigating to `http://localhost:8080/is-towel-day` in your web browser or using `curl`.
+You can now access the API by navigating to `http://localhost:8081` in your web browser or using `curl`.
 
 ## API Endpoint
 
 | Method | Endpoint               | Description                          |
 |--------|------------------------|--------------------------------------|
-| GET    | `/is-towel-day`        | Returns information about Towel Day, including whether today is Towel Day and how many days are left until the next one. |
+| GET    | `/`        | Returns information about Towel Day, including whether today is Towel Day and how many days are left until the next one. |
 
 ## Example Query
 
 To check if today is Towel Day, you can use the following command:
 
 ```bash
-curl -X GET http://localhost:8080/is-towel-day
+# Check server
+curl -sI localhost:8081 | grep "Server" | awk '{print $2}'
+
+curl -X GET http://localhost:8081
 ```
 
 ## Example Response
