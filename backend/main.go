@@ -16,21 +16,22 @@ type TowelDayResponse struct {
 }
 
 func isTowelDayHandler(w http.ResponseWriter, r *http.Request) {
-  currentDate := time.Now()
-  towelDay := time.Date(currentDate.Year(), time.May, 25, 0, 0, 0, 0, currentDate.Location())
+  currentDate := time.Now().UTC()
+  towelDay := time.Date(currentDate.Year(), time.May, 25, 0, 0, 0, 0, time.UTC)
 
-  // If Towel Day has already passed this year, set it to next year
-  if currentDate.After(towelDay) {
-    towelDay = towelDay.AddDate(1, 0, 0)
-  }
+  isTowelDay := currentDate.Year() == towelDay.Year() && currentDate.Month() == towelDay.Month() && currentDate.Day() == towelDay.Day()
 
-  daysUntil := int(towelDay.Sub(currentDate).Hours() / 24)
-  isTowelDay := daysUntil == 0
+  var daysUntil int
+  var message string
 
-  message := ""
   if isTowelDay {
-  	message = "Today is Towel Day! Don't forget to bring your towel."
+    daysUntil = 0
+    message = "Today is Towel Day! Don't forget to bring your towel."
   } else {
+    if currentDate.After(towelDay) {
+      towelDay = towelDay.AddDate(1, 0, 0)
+    }
+    daysUntil = int(towelDay.Sub(currentDate).Hours() / 24)
     message = fmt.Sprintf("There are %d days until Towel Day.", daysUntil)
   }
 
