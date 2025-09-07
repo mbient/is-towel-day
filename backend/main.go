@@ -16,9 +16,8 @@ type TowelDayResponse struct {
 }
 
 func IsTowelDay(currentDate, towelDay time.Time) bool {
-	return currentDate.Year() == towelDay.Year() && 
-	       currentDate.Month() == towelDay.Month() && 
-	       currentDate.Day() == towelDay.Day()
+	return currentDate.Month() == towelDay.Month() &&
+		currentDate.Day() == towelDay.Day()
 }
 
 func isTowelDayHandler(w http.ResponseWriter, r *http.Request) {
