@@ -15,11 +15,17 @@ type TowelDayResponse struct {
   Message      string `json:"message"`
 }
 
+func IsTowelDay(currentDate, towelDay time.Time) bool {
+	return currentDate.Year() == towelDay.Year() && 
+	       currentDate.Month() == towelDay.Month() && 
+	       currentDate.Day() == towelDay.Day()
+}
+
 func isTowelDayHandler(w http.ResponseWriter, r *http.Request) {
   currentDate := time.Now().UTC()
   towelDay := time.Date(currentDate.Year(), time.May, 25, 0, 0, 0, 0, time.UTC)
 
-  isTowelDay := currentDate.Year() == towelDay.Year() && currentDate.Month() == towelDay.Month() && currentDate.Day() == towelDay.Day()
+  isTowelDay := IsTowelDay(currentDate, towelDay)
 
   var daysUntil int
   var message string
