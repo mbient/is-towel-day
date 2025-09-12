@@ -67,8 +67,8 @@ The API will return a JSON response similar to the following:
 
 ```json
 {
-  "is_towel_day": false,
-  "towel_day": "May 25",
+  "is_event": false,
+  "event_date": "May 25",
   "current_date": "September 1",
   "days_until": 237,
   "message": "There are 237 days until Towel Day."
